@@ -1,276 +1,85 @@
-Perfect — here’s the **entire README**, cleanly formatted in one single block you can **copy in one go** and paste into your project root as `README.md`.
-
----
-
-```markdown
-# 🍽️ FoodShare — SDG 2: Zero Hunger
-
-FoodShare is a community-driven platform designed to reduce food waste and hunger by connecting restaurants, grocery stores, and individuals with surplus food to charities or people in need.
-
-> **Goal:** Support the United Nations **Sustainable Development Goal 2 — Zero Hunger**  
-> **Mission:** “No good food should go to waste when someone needs it.”
-
----
-
-## 🌍 Overview
-
-FoodShare allows users to:
-- Post **available food donations**
-- Browse **nearby available food**
-- Connect donors with charities or individuals
-- Track impact (e.g., meals shared, locations served)
-
-In the MVP, we’re using a mock JSON backend (`json-server`), but the structure is designed to easily evolve into a full-stack app with user authentication and real-time features.
-
----
-
-## 🧠 Tech Stack
-
-| Layer | Technology | Description |
-|-------|-------------|-------------|
-| Frontend | React (CRA) | UI & routing |
-| Backend (mock) | JSON Server | Simulated REST API |
-| Styling | CSS (custom, green theme) | Simple, SDG 2-aligned design |
-| Authentication (upcoming) | Firebase Auth / JWT | For sign-in & user profiles |
-| Hosting (optional) | Vercel / Netlify | Frontend deployment |
-| Database (future) | Firebase / MongoDB | Replace mock API |
-
----
-
-## 🗂️ Folder Structure
-
-```
-
-foodshare/
-│
-├── README.md
-├── server/
-│   └── db.json          # Mock database (listings + users)
-│
-└── client/
-├── package.json
-├── src/
-│   ├── api/         # Axios / Fetch utilities
-│   ├── components/  # Reusable UI components (Navbar, Footer, etc.)
-│   ├── pages/       # App pages (Home, Dashboard, Donate, Login, etc.)
-│   ├── App.js
-│   ├── App.css
-│   └── index.js
-
-````
-
----
-
-## 🧩 Setup Instructions (For Developers)
-
-### Step 1 — Clone the repository
-```bash
-git clone https://github.com/<your-org-or-username>/foodshare.git
-cd foodshare
-````
-
-### Step 2 — Install dependencies
-
-Frontend:
-
-```bash
-cd client
-npm install
-```
-
-Backend (JSON Server):
-
-```bash
-cd ..
-npm install -g json-server
-```
-
-### Step 3 — Run the project
-
-Backend (mock API):
-
-```bash
-json-server --watch server/db.json --port 8001
-```
-
-Frontend:
-
-```bash
-cd client
-npm start
-```
-
-Visit: [http://localhost:3000](http://localhost:3000)
-
----
-
-## 👥 Team Workflow (Git & Collaboration)
-
-### Branching Strategy
-
-We use a **feature-branch workflow** to avoid conflicts.
-
-| Branch           | Purpose                                      |
-| ---------------- | -------------------------------------------- |
-| `main`           | Stable, deploy-ready version                 |
-| `dev`            | Staging branch for testing                   |
-| `feature/<name>` | Work on new features (e.g., `feature/login`) |
-
-**Example workflow:**
-
-```bash
-# Create a new branch
-git checkout -b feature/login
-
-# Make your changes
-git add .
-git commit -m "Add login page"
-
-# Push your branch
-git push origin feature/login
-```
-
-Then go to GitHub → open a **Pull Request** into `dev`.
-
----
-
-## 🔨 Task Breakdown (for 4 Developers)
-
-| Area                  | Developer  | Description                                         |
-| --------------------- | ---------- | --------------------------------------------------- |
-| **Frontend Lead**     | Team lead  | Set up pages, routing, API integration              |
-| **Backend / API**     | Sule | Manage JSON Server, seed data, mock endpoints       |
-| **Auth & Users**      | Teammate 2 | Implement login/signup (Firebase or JWT mock)       |
-| **UI / UX & Styling** | Musa       | Beautify components, add responsiveness, animations |
-
----
-
-## 🚀 Feature Roadmap
-
-| Phase      | Features                                   | Status  |
-| ---------- | ------------------------------------------ | ------- |
-| ✅ MVP      | View + List donations (JSON server)        | Done    |
-| ⚙️ Phase 2 | User Auth (Login/Signup, Firebase)         | Pending |
-| ⚙️ Phase 3 | Role-based access (Donor, Receiver, Admin) | Pending |
-| ⚙️ Phase 4 | Food pickup requests & tracking            | Pending |
-| 🌍 Phase 5 | Deployment + Demo Presentation             | Pending |
-
----
-
-## 💅 Design & Beautification Plan
-
-We’ll gradually polish the UI:
-
-1. **Color Palette:**
-   Green (#4caf50), white, light grey — consistent with SDG 2.
-
-2. **Typography:**
-   Use *Inter* or *Poppins* fonts for clean, modern UI.
-
-3. **Components to Refine:**
-
-   * Navbar (navigation between pages)
-   * Cards for food listings
-   * Buttons and form styling
-   * Responsive mobile layout
-
-4. **Optional Libraries:**
-
-   * `react-icons` (for icons)
-   * `framer-motion` (simple animations)
-   * `react-router-dom` (for navigation)
-
----
-
-## 🔑 Authentication (Planned Upgrade)
-
-We’ll use **Firebase Authentication** for email/password sign-ins:
-
-1. Create a Firebase project.
-2. Enable Email/Password sign-in.
-3. Add Firebase config to `client/src/firebase.js`.
-4. Add:
-
-   * `/login` page
-   * `/signup` page
-   * Context for user session
-5. Protect routes (e.g., Dashboard → only for logged-in users).
-
----
-
-## 🧪 Testing
-
-Simple local testing via:
-
-* `npm start` (React)
-* `json-server` mock API
-* Use [Postman](https://www.postman.com/) or browser to verify backend routes.
-
----
-
-## 🧰 Useful Scripts
-
-Frontend:
-
-```bash
-npm start       # Start dev server
-npm run build   # Build for production
-```
-
-Backend:
-
-```bash
-json-server --watch server/db.json --port 8001
-```
-
----
-
-## 📈 Deployment (optional)
-
-* **Frontend:** Deploy to [Netlify](https://www.netlify.com/) or [Vercel](https://vercel.com/)
-* **Backend:** For mock stage, use [Render](https://render.com/) or migrate to Firebase Realtime DB later.
-
----
-
-## 🤝 Contribution Guidelines
-
-1. Always create a new branch from `dev`
-2. Write clear commit messages:
-
-   ```
-   feat: add login page
-   fix: resolve form validation bug
-   style: update dashboard layout
-   ```
-3. Avoid pushing directly to `main`
-4. Before merging → ensure everything runs without errors
-
----
-
-## 🧠 Troubleshooting
-
-| Issue                 | Cause                    | Fix                            |
-| --------------------- | ------------------------ | ------------------------------ |
-| JSON Server not found | Not installed globally   | `npm install -g json-server`   |
-| CORS error            | Fetching from wrong port | Use `http://localhost:8001`    |
-| "Module not found"    | Missing import           | Check file paths               |
-| App won’t start       | Wrong directory          | Run `npm start` from `/client` |
-
----
-
-## 👏 Credits
-
-**Team FoodShare 2025**
-Built with ❤️ for the SDG 2 Challenge.
-
----
-
-## ⚖️ License
-
-This project is licensed under the **MIT License**.
-
-```
-
----
-
-
+In this guided project, we'll be building an Evernote-like application with React.
+
+Your goal will be to complete the baseline deliverables using the provided starter code and then make this project your own by building out unique stretch goals. Some suggestions are listed below, but try to be creative!
+
+Requirements
+Complete all of the deliverables
+Build out at least 1 stretch goal feature
+Setup
+To get started, fork and clone this repository.
+
+The codebase is split up into a JSON Server API backend and a React frontend.
+
+Frontend
+To setup and run your frontend:
+
+ npm install
+ npm start
+This React app will be running on http://localhost:4000.
+
+Backend
+First, set up your database by running:
+
+ npm run seed
+This will seed some starter data for you in the db/db.json file. Any time you want to reset your database to its original state, just run npm run seed again to overwrite your data with some fresh seed data.
+
+To run json-server, run:
+
+ npm run server
+Your backend API will be running on http://localhost:3000.
+
+User ID
+The seed file should create one user for you, so your default userId should be 1. You can check the db/db.json file to make sure.
+
+Routes
+Method	Route	Headers	Body
+GET	/users		
+GET	/notes		
+POST	/notes	'Content-Type': 'application/json';'Accept': 'application/json'	title, body, userId
+PATCH	/notes/:id	'Content-Type': 'application/json';'Accept': 'application/json'	title, body, userId
+Tips:
+
+Test out your routes with PostmanLinks to an external site. to see how they work and what they return.
+Provided Code
+All CSS styles are provided for you.
+Many components are provided for you, but most are not completely functional. It is your job to read the code and figure out how to incorporate it into your app.
+Deliverables
+Look at the gif below to see how the app should look and behave. These are the baseline deliverables you need to complete:
+
+Viewing and Displaying Notes
+[ ] Display all notes in the left sidebar.
+[ ] Displayed sidebar notes should show the title and a truncated body.
+[ ] When a note from the sidebar is clicked, display its contents in the right panel.
+completed display notes
+
+Filtering Notes
+[ ] Implement the filter to search through your notes list by title.
+completed filter notes
+
+Creating Notes
+[ ] At the bottom of your left sidebar, show a New button.
+[ ] Clicking New will create a new note via a POST request with some default title and body. NOTE: You don't have to use any kind of <form> element for this deliverable; you can create an object with a default title and body text when the button is clicked. Make sure to check the Routes section of this README to determine what data you need in the body of your request.
+[ ] This new note should appear in the sidebar.
+completed create notes
+
+Editing Notes
+[ ] When displaying a note in the right panel, show an Edit button.
+[ ] Clicking the Edit button will allow the user to edit the title and body in the right panel.
+[ ] When in edit mode, also show a Save button which saves the note via a PATCH request.
+[ ] When in edit mode, also show a Cancel button which discards any changes and reverts back to displaying the note.
+[ ] Clicking a different note while in edit mode should discard your changes and display the new note instead.
+completed edit notes
+
+Stretch Goals
+When you are finished with the deliverables, you can build out any new features that you want. This is your chance to be creative and make your project unique!
+
+Some suggestions:
+
+Add the ability to filter by body, date created, date edited, etc.
+Sorting by date created, date edited, alphabetical, etc.
+Use react-router to create a multi-page app
+User signup & login
+Sharing notes with other users
+Rich text formatting
+Tagging
+Emailing notes

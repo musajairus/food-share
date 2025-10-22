@@ -1,0 +1,14 @@
+{
+  "name": "food-share-backend",
+  "version": "1.0.0",
+  "description": "Mock backend for food-share listings",
+  "main": "seed.js",
+  "type": "module",
+  "scripts": {
+    "seed": "node seed.js",
+    "start": "json-server --watch db.json --port 8001"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  }
+}

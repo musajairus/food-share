@@ -1,70 +1,23 @@
-import { useState, useEffect } from "react";
+import React from "react";
+import Layout from "../components/Layout";
+import Button from "../components/Button";
 
-function Donate() {
-  const [title, setTitle] = useState("");
-  const [location, setLocation] = useState("");
-  const [listings, setListings] = useState([]);
-
-  // Fetch existing listings
-  useEffect(() => {
-    fetch("http://localhost:8001/listings")
-      .then((res) => res.json())
-      .then((data) => setListings(data));
-  }, []);
-
-  // Handle new donation submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const newListing = { title, location };
-
-    fetch("http://localhost:8001/listings", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(newListing),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setListings([...listings, data]);
-        setTitle("");
-        setLocation("");
-      });
+const Donate = () => {
+  const handleDonate = () => {
+    alert("Thanks for donating!");
   };
 
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Donate Food 🍛</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="Food Title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-          required
-          style={{ marginRight: 10 }}
-        />
-        <input
-          type="text"
-          placeholder="Location"
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-          required
-          style={{ marginRight: 10 }}
-        />
-        <button type="submit">Add Donation</button>
-      </form>
+    <Layout>
+      <h2>Donate Surplus Food</h2>
+      <p>Help reduce waste and feed the hungry by contributing your excess food.</p>
 
-      <h3 style={{ marginTop: 20 }}>Existing Donations</h3>
-      <ul>
-        {listings.map((item) => (
-          <li key={item.id}>
-            {item.title} — {item.location}
-          </li>
-        ))}
-      </ul>
-    </div>
+      <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem" }}>
+        <Button onClick={handleDonate}>Donate Now</Button>
+        <Button variant="secondary">View Guidelines</Button>
+      </div>
+    </Layout>
   );
-}
+};
 
 export default Donate;

@@ -1,47 +1,19 @@
-import { useState, useEffect } from "react";
+import React from "react";
+import Layout from "../components/Layout";
+import Button from "../components/Button";
 
-function Request() {
-  const [listings, setListings] = useState([]);
-
-  // Fetch available food listings
-  useEffect(() => {
-    fetch("http://localhost:8001/listings")
-      .then((res) => res.json())
-      .then((data) => setListings(data));
-  }, []);
-
-  // Handle requesting an item (delete from DB for now)
-  const handleRequest = (id) => {
-    fetch(`http://localhost:8001/listings/${id}`, {
-      method: "DELETE",
-    }).then(() => {
-      setListings(listings.filter((item) => item.id !== id));
-      alert("Request sent! The donor will be contacted.");
-    });
-  };
-
+const Request = () => {
   return (
-    <div style={{ padding: 20 }}>
-      <h2>Available Food Donations 🍽️</h2>
-      {listings.length === 0 ? (
-        <p>No available donations at the moment.</p>
-      ) : (
-        <ul>
-          {listings.map((item) => (
-            <li key={item.id} style={{ marginBottom: 10 }}>
-              <strong>{item.title}</strong> — {item.location}{" "}
-              <button
-                onClick={() => handleRequest(item.id)}
-                style={{ marginLeft: 10 }}
-              >
-                Request
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
-    </div>
+    <Layout>
+      <h2>Request Food Assistance</h2>
+      <p>If you or your organization need food, request help from nearby donors.</p>
+
+      <div style={{ marginTop: "1.5rem", display: "flex", gap: "1rem" }}>
+        <Button onClick={() => alert("Request submitted!")}>Request Help</Button>
+        <Button variant="secondary">Check Status</Button>
+      </div>
+    </Layout>
   );
-}
+};
 
 export default Request;

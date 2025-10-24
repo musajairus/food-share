@@ -1,125 +1,15 @@
 {
-  "users": [
-    {
-      "id": "1",
-      "username": "foodshare_admin",
-      "email": "foodshare_admin@foodshare.com",
-      "role": "admin"
-    },
-    {
-      "id": "2",
-      "username": "bigjay",
-      "email": "bigjay@foodshare.com",
-      "role": "user"
-    },
-    {
-      "id": "3",
-      "username": "bodaguy",
-      "email": "bodaguy@foodshare.com",
-      "role": "user"
-    },
-    {
-      "id": "4",
-      "username": "Brian",
-      "email": "Brian@foodshare.com",
-      "role": "user"
-    },
-    {
-      "id": "5",
-      "username": "Okello",
-      "email": "Okello@foodshare.com",
-      "role": "user"
-    },
-    {
-      "id": "6",
-      "username": "nairobi_greediest",
-      "email": "nairobi_greediest@foodshare.com",
-      "role": "user"
-    },
-    {
-      "id": "7",
-      "username": "John",
-      "email": "John@foodshare.com",
-      "role": "user"
-    }
-  ],
   "listings": [
     {
-      "id": "1",
-      "food": "Pilau",
-      "quantity": "9 units",
-      "location": "Under the Swahili Tree — Karen, Nairobi",
-      "status": "available"
+      "id": "54cb",
+      "title": "LEFTOVER BREAD FROM JAVA",
+      "location": "CBD"
     },
     {
-      "id": "2",
-      "food": "Mandazi",
-      "quantity": "4 units",
-      "location": "Seven Seafood & Grill — ABC Place, Westlands, Nairobi.",
-      "status": "sold out"
-    },
-    {
-      "id": "4",
-      "food": "Pilau",
-      "quantity": "2 units",
-      "location": "Carnivore Restaurant — Langata Link Rd, Nairobi.",
-      "status": "available"
-    },
-    {
-      "id": "5",
-      "food": "Mandazi",
-      "quantity": "8 units",
-      "location": "Talisman Restaurant — Karen, Nairobi.",
-      "status": "sold out"
-    },
-    {
-      "id": "6",
-      "food": "Matoke",
-      "quantity": "10 units",
-      "location": "Big Square Lavington — Lavington, Nairobi.",
-      "status": "available"
-    },
-    {
-      "id": "7",
-      "food": "Matoke",
-      "quantity": "3 units",
-      "location": "Carnivore Restaurant — Langata Link Rd, Nairobi.",
-      "status": "available"
-    },
-    {
-      "id": "8",
-      "food": "Samosa",
-      "quantity": "8 units",
-      "location": "Big Square Lavington — Lavington, Nairobi.",
-      "status": "available"
-    },
-    {
-      "id": "9",
-      "food": "Rice",
-      "quantity": "13 units",
-      "location": "Talisman Restaurant — Karen, Nairobi.",
-      "status": "sold out"
-    },
-    {
-      "id": "10",
-      "food": "Chapati",
-      "quantity": "13 units",
-      "location": "Talisman Restaurant — Karen, Nairobi.",
-      "status": "available"
-    },
-    {
-      "id": "11",
-      "food": "Ugali",
-      "quantity": "12 units",
-      "location": "Soko Safi — Mama Lilishe Resturant-Ngong Road, Nairobi.",
-      "status": "available"
-    },
-    {
-      "id": "12",
-      "food": "Mandazi",
-      "quantity": "11 units",
-      "location": "Soko Safi — Mama Lilishe Resturant-Ngong Road, Nairobi.",
-      "status": "sold out"
+      "id": "1a93",
+      "title": "LEFTOVER RICE FROM EVENT",
+      "location": "WESTLANDS"
     }
-  ]
+  ],
+  "users": []
 }

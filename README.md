@@ -1,8 +1,4 @@
-Perfect — here’s the **entire README**, cleanly formatted in one single block you can **copy in one go** and paste into your project root as `README.md`.
 
----
-
-```markdown
 # 🍽️ FoodShare — SDG 2: Zero Hunger
 
 FoodShare is a community-driven platform designed to reduce food waste and hunger by connecting restaurants, grocery stores, and individuals with surplus food to charities or people in need.

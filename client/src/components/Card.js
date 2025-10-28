@@ -1,10 +1,11 @@
 import React from "react";
-import "../styles/globals.css";
 
-const Card = ({ title, description, image, children }) => {
+const Card = ({ title, description, image, children, onClick }) => {
   return (
     <div
+      onClick={onClick} // whole card is clickable
       style={{
+        cursor: onClick ? "pointer" : "default",
         backgroundColor: "var(--white)",
         borderRadius: "12px",
         boxShadow: "0 4px 12px rgba(0,0,0,0.1)",

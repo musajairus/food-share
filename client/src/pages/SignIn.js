@@ -1,29 +1,49 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import Layout from "../components/Layout";
 import Button from "../components/Button";
+import { DataContext } from "../context/DataContext";
 
-const SignIn = ({ setUser }) => {
+const SignIn = () => {
+  const { setUser } = useContext(DataContext);
   const navigate = useNavigate();
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (formData.email && formData.password) {
-      setUser({ email: formData.email });
-      alert("Signed in successfully!");
-      navigate("/");
-    } else {
-      alert("Please fill in both email and password.");
+    if (!formData.email || !formData.password) {
+      setError("Please fill in both email and password.");
+      return;
+    }
+
+    try {
+      // Fetch all users from mock API
+      const res = await fetch("http://localhost:8001/users");
+      const users = await res.json();
+
+      // Verify credentials manually
+      const foundUser = users.find(
+        (u) => u.email === formData.email && u.password === formData.password
+      );
+
+      if (foundUser) {
+        localStorage.setItem("user", JSON.stringify(foundUser));
+        setUser(foundUser);
+        alert("Signed in successfully!");
+        navigate("/dashboard");
+      } else {
+        setError("Invalid email or password.");
+      }
+    } catch (err) {
+      console.error(err);
+      setError("Error connecting to the server.");
     }
   };
 
@@ -50,7 +70,11 @@ const SignIn = ({ setUser }) => {
           value={formData.email}
           onChange={handleChange}
           required
-          style={{ padding: "0.75rem", borderRadius: "6px", border: "1px solid #ccc" }}
+          style={{
+            padding: "0.75rem",
+            borderRadius: "6px",
+            border: "1px solid #ccc",
+          }}
         />
         <input
           type="password"
@@ -59,8 +83,14 @@ const SignIn = ({ setUser }) => {
           value={formData.password}
           onChange={handleChange}
           required
-          style={{ padding: "0.75rem", borderRadius: "6px", border: "1px solid #ccc" }}
+          style={{
+            padding: "0.75rem",
+            borderRadius: "6px",
+            border: "1px solid #ccc",
+          }}
         />
+
+        {error && <p style={{ color: "red" }}>{error}</p>}
 
         <div style={{ display: "flex", gap: "1rem", marginTop: "0.5rem" }}>
           <Button type="submit">Sign In</Button>

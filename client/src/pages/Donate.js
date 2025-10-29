@@ -1,7 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import Layout from "../components/Layout";
 import Button from "../components/Button";
-import { DataContext } from "../context/DataContext";
 
 const Donate = () => {
   const [showForm, setShowForm] = useState(false);
@@ -11,8 +10,6 @@ const Donate = () => {
     location: "",
     photos: [],
   });
-
-  const { addDonation } = useContext(DataContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,13 +24,12 @@ const Donate = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Add donation to global context
-    addDonation(formData);
-
+    // For now, just alert the data
     alert(
       `Food Donation Submitted!\nTitle: ${formData.title}\nDescription: ${formData.description}\nLocation: ${formData.location}\nPhotos: ${formData.photos.map((f) => f.name).join(", ")}`
     );
 
+    // Reset form
     setFormData({ title: "", description: "", location: "", photos: [] });
     setShowForm(false);
   };
@@ -43,7 +39,9 @@ const Donate = () => {
       <h2>Donate Surplus Food</h2>
       <p>Help reduce waste and feed the hungry by contributing your excess food.</p>
 
-      {!showForm && <Button onClick={() => setShowForm(true)}>Donate Now</Button>}
+      {!showForm && (
+        <Button onClick={() => setShowForm(true)}>Donate Now</Button>
+      )}
 
       {showForm && (
         <form

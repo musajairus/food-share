@@ -1,8 +1,21 @@
-import React, { createContext, useState } from "react";
+import React, { useEffect ,createContext, useState } from "react";
 
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
+    // ====== USER AUTH STATE ======
+  const [user, setUser] = useState(null);
+
+  // Load saved user from localStorage when app starts
+  useEffect(() => {
+    const savedUser = JSON.parse(localStorage.getItem("user"));
+    if (savedUser) {
+      setUser(savedUser);
+    }
+  }, []);
+
+   // ====== DONATIONS STATE ======
+
   const [donations, setDonations] = useState([
     // initial mock data
     {
@@ -28,9 +41,10 @@ export const DataProvider = ({ children }) => {
 
   return (
     <DataContext.Provider
-      value={{ donations, requests, addDonation, addRequest }}
+      value={{ donations, requests, addDonation, addRequest ,setUser , user }}
     >
       {children}
     </DataContext.Provider>
   );
 };
+ 

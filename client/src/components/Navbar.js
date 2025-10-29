@@ -1,8 +1,16 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link ,useNavigate } from "react-router-dom";
 import "../styles/globals.css";
+import { DataContext } from "../context/DataContext";
+
 
 const Navbar = ({ user }) => {
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.removeItem("user");
+    window.location.reload(); // temporary fix
+  };
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">

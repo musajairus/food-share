@@ -1,34 +1,62 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
+import axios from "axios";
 
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
-  const [donations, setDonations] = useState([
-    // initial mock data
-    {
-      id: "1",
-      title: "Fresh Fruits from Kiambu",
-      description: "Surplus mangoes available for pickup today.",
-      location: "Kiambu",
-      contact: "0800 123 456",
-      image:
-        "https://images.unsplash.com/photo-1498579397066-22750a3cb424?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZnJlc2glMjBmcnVpdHN8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000",
-    },
-  ]);
+  const [donations, setDonations] = useState([]);
 
-  const [requests, setRequests] = useState([]);
-
-  const addDonation = (donation) => {
-    setDonations((prev) => [...prev, { id: Date.now().toString(), ...donation }]);
+  // ✅ Fetch donations from backend
+  const fetchDonations = async () => {
+    try {
+      const response = await axios.get("http://localhost:5000/api/food");
+      setDonations(response.data);
+    } catch (error) {
+      console.error("❌ Error fetching donations:", error);
+    }
   };
 
-  const addRequest = (request) => {
-    setRequests((prev) => [...prev, { id: Date.now().toString(), ...request }]);
+  // ✅ Add donation (handles image)
+  const addDonation = async (donationData) => {
+    try {
+      const formData = new FormData();
+      Object.keys(donationData).forEach((key) => {
+        formData.append(key, donationData[key]);
+      });
+
+      await axios.post("http://localhost:5000/api/food", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+
+      await fetchDonations(); // refresh list after upload
+    } catch (error) {
+      console.error("❌ Error adding donation:", error);
+      throw error;
+    }
   };
+
+  // ✅ Delete donation
+  const deleteDonation = async (id) => {
+    try {
+      await axios.delete(`http://localhost:5000/api/food/${id}`);
+      await fetchDonations(); // refresh list after delete
+    } catch (error) {
+      console.error("❌ Error deleting donation:", error);
+    }
+  };
+
+  // ✅ Load donations on mount
+  useEffect(() => {
+    fetchDonations();
+  }, []);
 
   return (
     <DataContext.Provider
-      value={{ donations, requests, addDonation, addRequest }}
+      value={{
+        donations,
+        addDonation,
+        deleteDonation,
+      }}
     >
       {children}
     </DataContext.Provider>

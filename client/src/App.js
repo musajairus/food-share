@@ -10,10 +10,24 @@ import ListingDetails from "./pages/ListingDetails";
 import RequestForm from "./pages/RequestForm";
 import Navbar from "./components/Navbar";
 import { DataProvider } from "./context/DataContext"; // <-- import DataProvider
+import FoodForm from "./components/FoodPostForm";
+import FoodList from "./components/NearbyFoodList";
+import FoodDetails from "./pages/FoodDetails";
 
 function App() {
   const [user, setUser] = useState(null); // null = not signed in
 
+function App() {
+  const [refresh, setRefresh] = useState(0);
+
+  return (
+    <div>
+      <h1 style={{ textAlign: "center" }}>🌍 Food Sharing Platform</h1>
+      <FoodForm onFoodPosted={() => setRefresh((r) => r + 1)} />
+      <FoodList refreshTrigger={refresh} />
+    </div>
+  );
+}
   return (
     <DataProvider>
       <Router>
@@ -30,6 +44,9 @@ function App() {
           <Route path="/signup" element={<SignUp setUser={setUser} />} />
           <Route path="/listing-details" element={<ListingDetails />} />
           <Route path="/request-form" element={<RequestForm />} />
+          <Route path="/food-post-form" element={<FoodForm />} />
+          <Route path="/nearby-food-list" element={<FoodList />} />
+          <Route path="/food-details" element={<FoodDetails />} />
         </Routes>
       </Router>
     </DataProvider>

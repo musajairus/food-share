@@ -1,57 +1,73 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../components/Layout";
 import Card from "../components/Card";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Home = () => {
   const navigate = useNavigate();
+  const [donations, setDonations] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const sampleListings = [
-    {
-      image: "https://images.unsplash.com/photo-1498579397066-22750a3cb424?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZnJlc2glMjBmcnVpdHN8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000",
-      title: "Fresh Fruits from Kiambu",
-      description: "Surplus mangoes available for pickup today.",
-      location: "Kiambu",
-      contact: "0700 123 456"
-    },
-    {
-      image: "https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8YnJlYWR8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000",
-      title: "Bakery Donation",
-      description: "Leftover bread and pastries available daily after 5 PM.",
-      location: "Westlands",
-      contact: "0700 654 321"
-    },
-    // Add more listings as needed...
-  ];
+  // Fetch donations from backend
+  useEffect(() => {
+    const fetchDonations = async () => {
+      try {
+        const res = await axios.get("http://localhost:5000/api/food");
+        setDonations(res.data);
+      } catch (error) {
+        console.error("❌ Error fetching donations:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchDonations();
+  }, []);
 
   return (
     <Layout>
       <h1>Available Food Donations</h1>
       <p>Here’s what’s being shared in your community:</p>
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "2rem",
-          justifyContent: "center",
-          marginTop: "2rem",
-        }}
-      >
-        {sampleListings.map((item, i) => (
-          <div
-            key={i}
-            onClick={() => navigate("/listing-details", { state: { listing: item } })}
-            style={{ cursor: "pointer" }}
-          >
-            <Card
-              image={item.image}
-              title={item.title}
-              description={item.description}
-            />
-          </div>
-        ))}
-      </div>
+      {loading ? (
+        <p>Loading donations...</p>
+      ) : donations.length === 0 ? (
+        <p>No donations yet. Be the first to donate!</p>
+      ) : (
+        <div
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "2rem",
+            justifyContent: "center",
+            marginTop: "2rem",
+          }}
+        >
+{donations.map((item) => (
+  <div
+    key={item.id}
+    onClick={() => navigate("/food-details", { state: { food: item } })}
+    style={{ cursor: "pointer" }}
+  >
+    <Card
+  image={
+    item.image
+      ? `http://localhost:5000${item.image}`
+      : "https://images.unsplash.com/photo-1565958011705-44e211b37f7e?auto=format&fit=crop&w=800&q=60"
+  }
+  title={item.name || item.title}
+  description={item.description}
+  location={
+    item.location?.name ||
+    `${item.location?.latitude}, ${item.location?.longitude}`
+  }
+/>
+
+  </div>
+))}
+        </div>
+      )}
     </Layout>
   );
 };

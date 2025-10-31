@@ -30,7 +30,7 @@ const FoodDetails = () => {
     );
   }
 
-  // If your backend returns location as an object
+  // If your backend returns location as an object with latitude and longitude
   const latitude = food.location?.latitude || food.latitude;
   const longitude = food.location?.longitude || food.longitude;
 
